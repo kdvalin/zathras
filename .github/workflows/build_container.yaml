@@ -49,7 +49,7 @@ jobs:
 
             IMAGE_TAGS="${IMAGE_TAGS},${IMAGE_BASE}:${LOCAL_MAJOR}.${LOCAL_MINOR},${IMAGE_BASE}:${{ github.ref_name }}"
           fi
-          
+          echo "$IMAGE_TAGS"
           echo "IMAGE_TAGS=$IMAGE_TAGS" >> $GITHUB_ENV
 
       - name: Build Container
