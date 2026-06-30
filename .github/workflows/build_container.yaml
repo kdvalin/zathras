@@ -42,7 +42,7 @@ jobs:
             LOCAL_PATCH=$(echo "${{ github.ref_name }}" | cut -d'.' -f3)
             
             # Don't care about other majors
-            REMOTE_TAGS=$( (skopeo list-tags docker://$IMAGE_BASE | grep -E "^$LOCAL_MAJOR") || echo "" && echo "${{ github.ref_name }}")
+            REMOTE_TAGS=$( (skopeo list-tags docker://$IMAGE_BASE | jq -r '.Tags[]' | grep -E "^$LOCAL_MAJOR\.") || echo "" && echo "${{ github.ref_name }}")
             if [[ $(echo "$REMOTE_TAGS" | sort -V | tail -n1) == "${{ github.ref_name}}" ]]; then
               IMAGE_TAGS="${IMAGE_TAGS},${IMAGE_BASE}:${LOCAL_MAJOR}"
             fi
